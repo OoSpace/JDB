@@ -1,0 +1,21 @@
+{
+  "name": "json_db",
+  "version": "1.0.0",
+  "description": "add delete update query json files",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index"
+  },
+  "keywords": [
+    "json",
+    "db"
+  ],
+  "author": "oospace@foxmail.com",
+  "license": "MIT",
+  "devDependencies": {
+    "fs": "0.0.1-security",
+    "promise": "^7.1.1",
+    "requirejs": "^2.3.3",
+    "underscore": "^1.8.3"
+  }
+}
