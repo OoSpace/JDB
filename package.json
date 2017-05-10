@@ -13,6 +13,7 @@
   "author": "oospace@foxmail.com",
   "license": "MIT",
   "devDependencies": {
+    "colors": "^1.1.2",
     "fs": "0.0.1-security",
     "promise": "^7.1.1",
     "requirejs": "^2.3.3",

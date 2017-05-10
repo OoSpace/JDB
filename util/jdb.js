@@ -8,14 +8,16 @@ define(function (require, exports, module) {
     var _ = require("underscore");
     var promise = require("promise");
 
-    var dbpath = "mydb/"
+    var dbpath = "mydb/";
 
     var example = {
         dbName: null,//数据库名字
         activeTable: null,//用到的表名
         dbTables: null,//所有的表名
-        activeData: null,//用到的数据
+        activeData: null,//用到的表的数据
         activeKeyList: null,//用到的字段列表
+        activeKey: null,//用到的单个字段
+        activeKeyValue: null,//用到的单个字段的值
     }
 
     /*
@@ -35,10 +37,12 @@ define(function (require, exports, module) {
     $JDB.prototype.createDB = function (param, callback) {
 
         param.dbName &&
-        _FS.checkDictionaryName(dbpath + param.dbName) &&
-        _FS.createDictionary(dbpath + param.dbName);
+        //!_FS.checkDictionaryName(dbpath + param.dbName) &&
+        _FS.createDictionary(dbpath + param.dbName, function (data) {
+            callback && callback(data);
+        });
 
-        return true;
+
     }
 
     /*
@@ -61,7 +65,7 @@ define(function (require, exports, module) {
     /*
      * 查询数据库,返回数据库的所有表名
      * */
-    $JDB.prototype.updateDB = function (param, callback) {
+    $JDB.prototype.queryDB = function (param, callback) {
 
 
     }
@@ -71,16 +75,41 @@ define(function (require, exports, module) {
      * @des 针对单个（表Table）JSON文件的操作
      * */
 
+    /*
+    *
+    * @des:创建单个表
+    * */
     $JDB.prototype.createTB = function (param, callback) {
 
         this.createDB(param, callback);
 
         param.activeTable &&
-        _FS.checkFile(dbpath + param.dbName + '/' + param.activeTable) &&
-        _FS.createFile(dbpath + param.dbName + '/' + param.activeTable, JSON.stringify(param.activeData));
+        //!_FS.checkFile(dbpath + param.dbName + '/' + param.activeTable) &&
+        _FS.createFile(dbpath + param.dbName + '/' + param.activeTable, JSON.stringify(param.activeData),function (data) {
+            callback&&callback(data);
+        });
 
 
     }
+
+
+    /*
+     *
+     * @des:查询表数据，返回字符串格式的数据
+     * */
+    $JDB.prototype.queryTB = function (param, callback) {
+
+        param.charset = param.charset || "utf8";
+        //!_FS.checkFile(dbpath + param.dbName + "/" + param.activeTable) &&
+        _FS.readFile(dbpath + param.dbName + "/" + param.activeTable, param.charset, function (data) {
+
+            callback && callback(data)
+        });
+
+
+    }
+
+
     /*
      * @des 针对单个字段（JSON文件中单个值）的操作
      * */
