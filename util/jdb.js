@@ -67,7 +67,9 @@ define(function (require, exports, module) {
      * */
     $JDB.prototype.queryDB = function (param, callback) {
 
-
+        _FS.readFileList(dbpath + param.dbName + '/',function (data) {
+            callback&&callback(data)
+        })
     }
 
 

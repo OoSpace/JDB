@@ -3,7 +3,7 @@
  */
 define(function (require, exports, module) {
     var fs = require("fs");
-
+    var rpath=require("path");
     var promise = require("promise");
 
     var colors =require("colors")
@@ -53,6 +53,23 @@ define(function (require, exports, module) {
         });
 
 
+    }
+    
+    FS.prototype.readFileList=function (path,callback) {
+        var result=[];
+        function finder(path) {
+            var files=fs.readdirSync(path);
+            files.forEach(function (val,index){
+                var fPath=rpath.join(path,val);
+                var stats=fs.statSync(fPath);
+                if(stats.isDirectory()) finder(fPath);
+                if(stats.isFile()) result.push(fPath.toString().split("\\").join("/"));
+            });
+
+        }
+        finder(path);
+        console.log(result)
+        callback(result);
     }
 
     FS.prototype.createFile = function (fname, str, callback) {

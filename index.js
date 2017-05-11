@@ -21,26 +21,27 @@ var db = {
     dbName: "example"
 }
 
-_jdb.createDB(db);
+//_jdb.createDB(db);
 
 //test tb
 var testData = {"test": ["1", 2, 3, 4, 5, 6, 76, 8]};
 var tb = _.extend({activeTable: "example.json", activeData: JSON.stringify(testData)}, db);
 
-_jdb.createTB(tb);
+//_jdb.createTB(tb);
 
 
 //test tb2
 var tb2=_.extend({activeTable:"tb2.json",activeData:JSON.stringify(testData)},db);
 
-_jdb.createTB(tb2);
+//_jdb.createTB(tb2);
 
-//test query
-_jdb.queryTB(tb, function (data) {
+//test query tb
+/*_jdb.queryTB(tb, function (data) {
     console.log(JSON.parse(data))
-});
+});*/
 
-
+//test query db
+_jdb.queryDB(db)
 
 
 

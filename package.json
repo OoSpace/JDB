@@ -15,6 +15,7 @@
   "devDependencies": {
     "colors": "^1.1.2",
     "fs": "0.0.1-security",
+    "path": "^0.12.7",
     "promise": "^7.1.1",
     "requirejs": "^2.3.3",
     "underscore": "^1.8.3"
